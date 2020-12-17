@@ -42,7 +42,11 @@ class Airplane {
 */
 
 class Person { 
-  
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+    const stomach = [];
+  }
 }
 
 /*
@@ -60,7 +64,20 @@ class Person {
 */
 
 class Car {
-  
+  constructor(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    let tank = 0;
+    let odometer = 0;
+  }
+  fill(gallons) {
+    this.tank += gallons;
+  }
+  drive(distance) {
+    this.odometer += distance;
+    if (this.tank !== 0) return `I ran out of fuel at ${this.odometer} miles!`;
+    else (this.odometer % this.milesPerGallon === 0) this.tank--; // decrement tank by 1 gallon when we drive the exact amount of miles required to lose 1 gallon
+  }
 }
 
 /*
