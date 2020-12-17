@@ -82,10 +82,11 @@ class Car {
   fill(gallons) {
     this.tank += gallons;
   }
+  // wow this function ended up being MUCH more condensed than when i was creating it initially...
   drive(distance) {
-    this.odometer += distance;
-    if (this.tank !== 0) return `I ran out of fuel at ${this.odometer} miles!`;
-    else if (this.odometer % this.milesPerGallon === 0) this.tank--; // decrement tank by 1 gallon when we drive the exact amount of miles required to lose 1 gallon
+    this.odometer += Math.min(distance, this.tank * this.milesPerGallon);
+    this.tank -= Math.floor((distance / this.milesPerGallon));
+    if (this.tank < this.milesPerGallon) return `I ran out of fuel at ${this.odometer} miles!`;
   }
 }
 
@@ -163,11 +164,8 @@ class Student extends Lambdasian {
     this.favSubjects = obj.favSubjects;
   }
   listSubjects() {
-    let string = `Loving `;
-    for (let subject in this.favSubjects) {
-      string += `${this.favSubjects[subject]}`
-      (subject < this.favSubjects.length) ? string += `,` : string += `!`;
-    }
+    let string = "";
+    for (let i = 0; i < this.favSubjects.length; i++) string += `${this.favSubjects[i]}`; // for some reason couldn't get forEach() to work... went back to the good ol' reliable for()
     return string;
   }
   PRAssignment(subject) {
@@ -197,7 +195,7 @@ class ProjectManager extends Instructor {
       this.gradClassName = obj.gradClassName;
       this.favInstructor = obj.favInstructor;
     }
-    standup(channel) {
+    standUp(channel) {
       return `${this.name} accounces to ${channel}, @channel standby times!`;
     }
     debugsCode(student, subject) {
