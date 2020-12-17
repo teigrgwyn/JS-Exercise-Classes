@@ -48,7 +48,7 @@ class Person {
     this.stomach = [];
   }
   eat(food) {
-    if (this.stomach <= 10) this.stomach.push(food);
+    if (this.stomach.length < 10) this.stomach.push(food);
   }
   poop() {
     this.stomach = [];
@@ -76,8 +76,8 @@ class Car {
   constructor(model, milesPerGallon) {
     this.model = model;
     this.milesPerGallon = milesPerGallon;
-    let tank = 0;
-    let odometer = 0;
+    this.tank = 0;
+    this.odometer = 0;
   }
   fill(gallons) {
     this.tank += gallons;
@@ -164,10 +164,11 @@ class Student extends Lambdasian {
   }
   listSubjects() {
     let string = `Loving `;
-    for (subject in this.favSubjects) {
-      string += `${subject},`
+    for (let subject in this.favSubjects) {
+      string += `${this.favSubjects[subject]}`
+      (subject < this.favSubjects.length) ? string += `,` : string += `!`;
     }
-    return (string += `!`)
+    return string;
   }
   PRAssignment(subject) {
     return `${this.name} has submitted a PR for ${subject}`; // this should already refer to student, correct?
